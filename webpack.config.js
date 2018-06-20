@@ -8,5 +8,17 @@ module.exports = {
     library: "bionic",
     libraryTarget: "umd"
   },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        loader: "babel-loader",
+        query: {
+          presets: ["es2015"],
+          plugins: ["transform-object-rest-spread"]
+        }
+      }
+    ]
+  },
   mode: "development"
 };

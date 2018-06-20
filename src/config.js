@@ -7,38 +7,58 @@ export class BionicConfig {
     return this._settings;
   }
 
-  set reporting_user(user) {
+  set flagged_content(_content) {
     this._settings = {
       ...this._settings,
-      reporting_user: user
+      flagged_data: _content
     };
   }
 
-  set flagged_user(user) {
-    this.settings = {
+  set category(_category) {
+    this._settings = {
       ...this._settings,
-      flagged_user: user
+      category: _category
     };
   }
 
-  set metadata(md) {
-    this.settings = {
+  set context(_context) {
+    this._settings = {
+      ...this._settings,
+      context: _context
+    };
+  }
+
+  set reporting_user(_user) {
+    this._settings = {
+      ...this._settings,
+      reporting_user: _user
+    };
+  }
+
+  set flagged_user(_user) {
+    this._settings = {
+      ...this._settings,
+      flagged_user: _user
+    };
+  }
+
+  set metadata(_metadata) {
+    this._settings = {
       ...this._settings,
       metadata: {
         ...this._settings.metadata,
-        ...md
+        ..._metadata
       }
     };
   }
 
-  set 
-
   initialize(key, user, options = {}) {
     this._settings = {
+      ...this._settings,
       client_key: key,
       reporting_user: user,
       metadata: options.metadata,
-      ...this._settings
+      env: options.environment || "production"
     };
   }
 }

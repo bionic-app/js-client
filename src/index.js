@@ -1,3 +1,4 @@
 import config, { initialize } from "./config";
+import requestor from "./requests";
 
-export { config, initialize };
+export { config, initialize, requestor };
