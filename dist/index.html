@@ -13,7 +13,10 @@
                 'test': '123'
             }
         })
-        console.log(bionic);
+        var req = new bionic.requestor();
+        req.sendFlag()
+            .then((d) => console.log(d))
+            .catch((e) => console.log(e));
     </script>
 </body>
 
