@@ -33,8 +33,5 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   },
-  "dependencies": {},
-  "peerDependencies": {
-    "q": "^1.5.1"
-  }
+  "dependencies": {}
 }

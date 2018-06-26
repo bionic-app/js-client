@@ -7,7 +7,7 @@ jobs:
     - stage: unit test
       script: yarn test
     - stage: npm release
-      script: echo "deploying to npm ..."
+      script: yarn
       deploy:
         provider: npm
         email: "max@bionic-app.com"
