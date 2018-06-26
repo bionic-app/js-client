@@ -1,5 +1,5 @@
 {
-  "name": "bionic-js-client",
+  "name": "bionic-js",
   "version": "0.0.1",
   "description": "Bionic Javascript Client",
   "main": "dist/index.js",
