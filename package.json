@@ -10,7 +10,7 @@
     "test": "yarn unit && yarn lint",
     "build": "./node_modules/.bin/webpack",
     "clean": "./node_modules/.bin/rimraf dist",
-    "prepare": "yarn clean",
+    "prepare": "yarn build",
     "unit": "./node_modules/.bin/jest",
     "lint": "./node_modules/.bin/eslint src"
   },
