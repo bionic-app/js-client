@@ -4,7 +4,7 @@ module.exports = {
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "bionic-client.js",
+    filename: "index.js",
     library: "bionic",
     libraryTarget: "umd"
   },
@@ -20,5 +20,5 @@ module.exports = {
       }
     ]
   },
-  mode: "development"
+  mode: "production"
 };

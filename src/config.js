@@ -12,38 +12,38 @@ export class Bionic {
     return this._data;
   }
 
-  set flagged_content(_content) {
+  set flaggedContent(_content) {
     this._data = {
       ...this._data,
-      flagged_data: _content
+      flagged_data: _content,
     };
   }
 
   set category(_category) {
     this._data = {
       ...this._data,
-      category: _category
+      category: _category,
     };
   }
 
   set context(_context) {
     this._data = {
       ...this._data,
-      context: _context
+      context: _context,
     };
   }
 
-  set reporting_user(_user) {
+  set reportingUser(_user) {
     this._data = {
       ...this._data,
-      reporting_user: _user
+      reporting_user: _user,
     };
   }
 
-  set flagged_user(_user) {
+  set flaggedUser(_user) {
     this._data = {
       ...this._data,
-      flagged_user: _user
+      flagged_user: _user,
     };
   }
 
@@ -52,8 +52,8 @@ export class Bionic {
       ...this._data,
       metadata: {
         ...this._data.metadata,
-        ..._metadata
-      }
+        ..._metadata,
+      },
     };
   }
 
@@ -62,10 +62,10 @@ export class Bionic {
       ...this._data,
       client_key: key,
       reporting_user: user,
-      metadata: metadata
+      metadata: metadata,
     };
     this._settings = {
-      env: options.environment || "production"
+      env: options.environment || 'production',
     };
   }
 }

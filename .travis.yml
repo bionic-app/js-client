@@ -1,1 +1,13 @@
-
+language: node_js
+node_js:
+  - node
+cache: yarn
+script: echo "Running Jest unit tests ..."
+jobs:
+  include:
+    - stage: npm release
+      script: echo "deploying to npm ..."
+      deploy:
+        provider: npm
+        api_key: $NPM_TOKEN
+        on: master
