@@ -10,5 +10,6 @@ jobs:
       script: echo "deploying to npm ..."
       deploy:
         provider: npm
+        email: "max@bionic-app.com"
         api_key: $NPM_TOKEN
         on: master
