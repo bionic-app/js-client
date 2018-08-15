@@ -63,6 +63,6 @@
     "prefer-arrow-callback": [2, { "allowNamedFunctions": true }],
     "prefer-const": 1,
     "no-extra-boolean-cast": 0,
-    "no-console": ["error", { "allow": ["warn", "error"] }]
+    "no-console": ["error", { "allow": ["warn", "error", "info"] }]
   }
 }
