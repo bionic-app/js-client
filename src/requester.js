@@ -1,15 +1,5 @@
-import config from './config';
-
-export default class BionicRequests {
-  constructor(server) {
-    this._server = 'https://stream.bionic-app.net';
-    if (!!server) {
-      this._server = 'https://stream.${server}';
-    }
-    this._url = `${this._server}/flags`;
-  }
-
-  sendFlag() {
+export default class Requester {
+  postJSON(endpoint, body) {
     return new Promise((resolve, reject) => {
       const xhttp = new XMLHttpRequest();
 
@@ -24,9 +14,9 @@ export default class BionicRequests {
         }
       };
 
-      xhttp.open('POST', this._url, true);
+      xhttp.open('POST', endpoint, true);
       xhttp.setRequestHeader('Content-Type', 'application/json');
-      xhttp.send(JSON.stringify(config.data));
+      xhttp.send(JSON.stringify(body));
     });
   }
 }
