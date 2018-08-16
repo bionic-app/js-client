@@ -4,7 +4,7 @@ export class Bionic {
   constructor() {
     this._settings = Object.create(null);
     this._data = Object.create(null);
-    this.requestor = new Requester();
+    this._requester = new Requester();
   }
 
   // GETTERS AND SETTERS
@@ -23,6 +23,10 @@ export class Bionic {
 
   get settings() {
     return this._settings;
+  }
+
+  get requester() {
+    return this._requester;
   }
 
   get data() {
@@ -145,8 +149,21 @@ export class Bionic {
     this.settings = options;
   }
 
-  flag() {
-    return this.requestor.postJSON(this.settings.endpoint, this.data);
+  flag(cb) {
+    return this._requester.postJSON(this.settings.endpoint, this.data, cb);
+  }
+
+  flagAsync() {
+    return new Promise((resolve, reject) => {
+      const cb = error => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve();
+        }
+      };
+      this.flag(cb);
+    });
   }
 
   // HELPERS

@@ -112,20 +112,30 @@ describe('exports', () => {
       },
     });
   });
-});
 
-describe('requests', () => {
   it('should have a default endpoint set', () => {
     const service = new Bionic();
     service.initialize('123', { id: '1' });
     expect(service.settings.endpoint).toEqual(
       'https://stream.bionic-app.com/flags'
     );
-    service.requestor.postJSON = jest.fn();
-    service.flag();
-    expect(service.requestor.postJSON).toHaveBeenCalledWith(
-      service.settings.endpoint,
-      service.data
-    );
+  });
+
+  it('should return nothing if resolved with flagAsync', () => {
+    const service = new Bionic();
+    service.initialize('123', { id: '1' });
+    service.flag = jest.fn(cb => cb());
+    return service.flagAsync().then(result => {
+      expect(result).toBeUndefined();
+    });
+  });
+
+  it('should return error on fail with flagAsync', () => {
+    const service = new Bionic();
+    service.initialize('123', { id: '1' });
+    service.flag = jest.fn(cb => cb('fail'));
+    return service.flagAsync().catch(result => {
+      expect(result).toEqual('fail');
+    });
   });
 });

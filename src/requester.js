@@ -1,22 +1,27 @@
 export default class Requester {
-  postJSON(endpoint, body) {
-    return new Promise((resolve, reject) => {
-      const xhttp = new XMLHttpRequest();
+  constructor() {
+    this.xhr = new XMLHttpRequest();
+  }
 
-      xhttp.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status >= 299) {
-          if (this.status >= 299) {
-            console.error('failed to report content to bionic');
-            reject(JSON.parse(this.responseText));
-          } else if (this.status === 204) {
-            resolve();
+  postJSON(endpoint, body, cb) {
+    this.xhr.onreadystatechange = function () {
+      if (this.readyState === 4 && this.status >= 299) {
+        if (this.status >= 299) {
+          console.error('failed to report content to bionic');
+          if (cb) {
+            cb(this.responseText);
+          }
+        } else if (this.status === 204) {
+          if (cb) {
+            cb(null);
           }
         }
-      };
+      }
+    };
+    this.xhr.open('POST', endpoint, true);
+    this.xhr.setRequestHeader('Content-Type', 'application/json');
+    this.xhr.send(JSON.stringify(body));
 
-      xhttp.open('POST', endpoint, true);
-      xhttp.setRequestHeader('Content-Type', 'application/json');
-      xhttp.send(JSON.stringify(body));
-    });
+    return this._xhr;
   }
 }
