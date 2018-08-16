@@ -1,6 +1,6 @@
 {
   "name": "bionic-js",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Bionic Javascript Client",
   "main": "dist/index.js",
   "repository": "https://github.com/bionic-app/js-client.git",
