@@ -1,17 +1,20 @@
 import sinon from 'sinon';
-import singleton, { Bionic } from '../src';
+import { BionicClient, FlaggedItem, Report } from '../src';
 
 describe('requester', () => {
   let server;
-  let requests = [];
-  let service;
+  let requests;
+  let client;
+  let flaggedItem;
+  let report;
 
   beforeEach(() => {
     requests = [];
     server = sinon.fakeServer.create();
     server.respondWith([204, { 'Content-Type': 'application/json' }, '']);
-    service = new Bionic();
-    service.initialize('123', { id: '1' });
+    client = new BionicClient('abc');
+    flaggedItem = new FlaggedItem();
+    report = new Report();
   });
 
   afterEach(() => {
@@ -19,43 +22,50 @@ describe('requester', () => {
   });
 
   it('should pass the proper params with postJSON', () => {
-    service.requester.postJSON = jest.fn();
+    client.requester.postJSON = jest.fn();
     const cb = jest.fn();
-    service.flag(cb);
-    expect(service.requester.postJSON).toHaveBeenCalledWith(
-      service.settings.endpoint,
-      service.data,
+    client.flagSync(flaggedItem, report, cb);
+    expect(client.requester.postJSON).toHaveBeenCalledWith(
+      client.options,
+      {
+        ...flaggedItem.data,
+        report: report.data
+      },
       cb
     );
   });
 
-  it('should pass the json stringified version of the data from service to xhttp', () => {
-    service.requester.xhr = {
+  it('should pass the json stringified version of the data from client to xhttp', () => {
+    client.requester.xhr = {
       onreadystatechange: jest.fn(),
       open: jest.fn(),
       setRequestHeader: jest.fn(),
       send: jest.fn(),
     };
-    service.flag();
-    expect(service.requester.xhr.send).toHaveBeenCalledWith(
-      JSON.stringify(service.data)
+    client.flagSync(flaggedItem, report);
+    expect(client.requester.xhr.send).toHaveBeenCalledWith(
+      JSON.stringify({
+        report: report.data,
+        client_id: client.options.clientId,
+        ...flaggedItem.data,
+      })
     );
   });
 
   it('should call xhr.open and xhr.setRequestHeader with appropriate args', () => {
-    service.requester.xhr = {
+    client.requester.xhr = {
       onreadystatechange: jest.fn(),
       open: jest.fn(),
       setRequestHeader: jest.fn(),
       send: jest.fn(),
     };
-    service.flag();
-    expect(service.requester.xhr.open).toHaveBeenLastCalledWith(
+    client.flag(flaggedItem, report);
+    expect(client.requester.xhr.open).toHaveBeenLastCalledWith(
       'POST',
-      service.settings.endpoint,
+      client.options.endpoint,
       true
     );
-    expect(service.requester.xhr.setRequestHeader).toHaveBeenCalledWith(
+    expect(client.requester.xhr.setRequestHeader).toHaveBeenCalledWith(
       'Content-Type',
       'application/json'
     );
@@ -63,7 +73,7 @@ describe('requester', () => {
 
   it('should send an http request with proper data', () => {
     const cb = sinon.spy();
-    service.flag(cb);
+    client.flag(flaggedItem, report, cb);
     server.respond();
     expect(server.requests.length).toEqual(1);
     expect(server.requests[0].url).toEqual(
@@ -73,7 +83,11 @@ describe('requester', () => {
       'application/json;charset=utf-8'
     );
     expect(server.requests[0].requestBody).toEqual(
-      JSON.stringify(service.data)
+      JSON.stringify({
+        report: report.data,
+        client_id: client.options.clientId,
+        ...flaggedItem.data,
+      })
     );
   });
 });
