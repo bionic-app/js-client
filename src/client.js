@@ -1,20 +1,23 @@
-import Requester from "./classes/requester";
-import ContextConsumer from "./classes/contextConsumer";
+import Requester from './classes/requester';
 
 export default class BionicClient {
   constructor(clientId, options = {}) {
     if (!clientId) {
-      console.error('Please pass a client id when initializing BionicClient')
+      console.error('Please pass a client id when initializing BionicClient');
     }
 
     this.options = { clientId, ...options };
     this.requester = new Requester();
   }
 
-  // General options related to the client, this cascades into every 
+  // General options related to the client, this cascades into every
   // supporting class as a first param for DI Injection (simple module, simple DI!)
   set options(options) {
-    const { debug = false, clientId, endpoint = 'https://stream.bionic-app.com/flags' } = options;
+    const {
+      debug = false,
+      clientId,
+      endpoint = 'https://stream.bionic-app.com/flags',
+    } = options;
     this._options = {
       debug,
       clientId,
@@ -29,13 +32,13 @@ export default class BionicClient {
   _flag(flaggedItem, report, cb) {
     const data = {
       ...flaggedItem.data,
-      report: report.data
-    }
+      report: report.data,
+    };
     return this.requester.postJSON(this.options, data, cb);
   }
 
   flagSync(flaggedItem, report, cb) {
-    return this._flag(flaggedItem, report, cb)
+    return this._flag(flaggedItem, report, cb);
   }
 
   flag(flaggedItem, report) {
@@ -50,5 +53,4 @@ export default class BionicClient {
       this._flag(flaggedItem, report, cb);
     });
   }
-
 }

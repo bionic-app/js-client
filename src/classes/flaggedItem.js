@@ -39,14 +39,14 @@ export default class FlaggedItem extends ContextConsumer {
       id,
       contentType: content_type,
       content,
-      timestamp
+      timestamp,
     } = data;
     this._content = {
       id,
       content_type,
       content,
-      timestamp
-    }
+      timestamp,
+    };
   }
 
   get content() {
@@ -59,14 +59,14 @@ export default class FlaggedItem extends ContextConsumer {
       contentType: content_type,
       content,
       link,
-      timestamp
+      timestamp,
     } = data;
     this._parent = {
       id,
       content_type,
       content,
       link,
-      timestamp
+      timestamp,
     };
   }
 
@@ -80,7 +80,7 @@ export default class FlaggedItem extends ContextConsumer {
       id,
       name,
       email,
-      avatar
+      avatar,
     };
   }
 

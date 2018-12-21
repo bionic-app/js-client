@@ -49,27 +49,30 @@ export default class Report extends ContextConsumer {
     this._tags = [];
     tags.forEach(tag => {
       this.addToTags(tag);
-    })
+    });
   }
 
   addToTags(val) {
-      if (this._tags.length > 5) {
-          console.error(`cannot exceed 5 tags`);
-      }
-      if (typeof val !== 'string') {
-          console.error(`values in tags must be strings. ${typeof val} not allowed`);
-          return;
-      }
-      this._tags.push(val);
+    if (this._tags.length > 5) {
+      console.error('cannot exceed 5 tags');
+    }
+    if (typeof val !== 'string') {
+      console.error(
+        `values in tags must be strings. ${typeof val} not allowed`
+      );
+      return;
+    }
+    this._tags.push(val);
   }
 
   removeFromTags(val) {
-      const indexOfVal = this._tags.indexOf(val);
-      if (indexOfVal === -1) {
-          console.info(`the value, "${val}" cannot be removed from the tags array, as it does not exist `);
-          return;
-      }
-      this._tags.splice(indexOfVal, 1);
+    const indexOfVal = this._tags.indexOf(val);
+    if (indexOfVal === -1) {
+      console.info(
+        `the value, "${val}" cannot be removed from the tags array, as it does not exist `
+      );
+      return;
+    }
+    this._tags.splice(indexOfVal, 1);
   }
-
 }

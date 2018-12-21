@@ -21,7 +21,7 @@ export default class Requester {
     };
     this.xhr.open('POST', endpoint, true);
     this.xhr.setRequestHeader('Content-Type', 'application/json');
-    this.xhr.send(JSON.stringify({...body, client_id}));
+    this.xhr.send(JSON.stringify({ ...body, client_id }));
 
     return this._xhr;
   }
