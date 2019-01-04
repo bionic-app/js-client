@@ -29,7 +29,7 @@ export default class Report extends ContextConsumer {
       customer_user_id: id,
       email,
       avatar,
-      name
+      name,
     };
   }
 

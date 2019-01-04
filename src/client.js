@@ -14,7 +14,7 @@ export default class BionicClient {
     this._options = {
       ...this._options,
       clientId,
-    }
+    };
   }
   // General options related to the client, this cascades into every
   // supporting class as a first param for DI Injection (simple module, simple DI!)
