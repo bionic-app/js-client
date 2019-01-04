@@ -12,7 +12,7 @@ export default class Report extends ContextConsumer {
   get data() {
     const { user, comments, tags, context } = this;
     return precleanData({
-      user,
+      ...user,
       comments,
       tags,
       context,
@@ -26,10 +26,10 @@ export default class Report extends ContextConsumer {
   set user(user = {}) {
     const { id, email, avatar, name } = user;
     this._user = {
-      id,
+      customer_user_id: id,
       email,
-      name,
       avatar,
+      name
     };
   }
 

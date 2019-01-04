@@ -17,13 +17,18 @@ export default class FlaggedItem extends ContextConsumer {
     this.content = content;
     this.user = user;
     this.parent = parent;
-    
-    this._data = Object.create(null);
   }
 
 
   get data() {
-    return precleanData(this._data);
+    const { content, user, parent, context, sourceId } = this;
+    return precleanData({
+      source_id: sourceId,
+      content,
+      user,
+      parent,
+      context,
+    });
   }
 
   set sourceId(sourceId) {

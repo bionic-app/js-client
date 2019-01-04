@@ -8,6 +8,9 @@ export const precleanData = data => {
       if (typeof data[e] === 'object') {
         if (Object.keys(data[e]).length !== 0) {
           output[e] = precleanData(data[e]);
+          if (Object.keys(output[e]).length === 0) {
+            delete output[e];
+          }
         }
       } else if (data[e] !== undefined) {
         output[e] = data[e];

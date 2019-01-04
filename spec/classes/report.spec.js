@@ -9,6 +9,13 @@ describe('Reports', () => {
         avatar: 'https://test.test.com'
     };
 
+    const userMatch = {
+        customer_user_id: '123',
+        email: 'test@test.com',
+        name: 'Joe Schmoe',
+        avatar: 'https://test.test.com'
+    }
+
     const comments = 'This is awful stuff';
 
     const tags = [
@@ -33,7 +40,7 @@ describe('Reports', () => {
 
     it ('should construct the various properties', () => {
 
-        expect(report.user).toEqual(user);
+        expect(report.user).toEqual(userMatch);
         expect(report.comments).toEqual(comments);
         expect(report.tags).toEqual(tags);
         expect(report.context).toEqual(context);
@@ -68,8 +75,15 @@ describe('Reports', () => {
             avatar: 'https://new.new.com'
         };
 
+        const match = {
+            customer_user_id: '234',
+            email: 'test@test2.com',
+            name: 'test man',
+            avatar: 'https://new.new.com'
+        }
+
         report.user = new_user;
-        expect(report._user).toEqual(new_user);
+        expect(report._user).toEqual(match);
     })
 
 })

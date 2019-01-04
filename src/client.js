@@ -10,6 +10,12 @@ export default class BionicClient {
     this.requester = new Requester();
   }
 
+  set clientId(clientId) {
+    this._options = {
+      ...this._options,
+      clientId,
+    }
+  }
   // General options related to the client, this cascades into every
   // supporting class as a first param for DI Injection (simple module, simple DI!)
   set options(options) {
@@ -50,7 +56,7 @@ export default class BionicClient {
           resolve();
         }
       };
-      this._flag(flaggedItem, report, cb);
+      return this._flag(flaggedItem, report, cb);
     });
   }
 }
